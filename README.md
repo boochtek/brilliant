@@ -32,6 +32,13 @@ Once that has finished, you can run the tests:
 rake
 ~~~
 
+And you can compile and run programs:
+
+~~~ bash
+bin/brilliant example.bril ; echo $?
+~~~
+
+
 
 Copyright
 ---------
