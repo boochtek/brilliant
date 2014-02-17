@@ -1,0 +1,11 @@
+require "rattler"
+
+parser Brilliant::Parser < Rattler::Runtime::ExtendedPackratParser
+
+%start program
+
+%whitespace SPACE*
+
+program         <- literal_integer  <AST::Program.new>
+literal_integer <- @DIGIT+          <AST::LiteralInteger.new>
+

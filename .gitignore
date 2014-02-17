@@ -1,0 +1,7 @@
+Gemfile.lock
+.bundle/gems
+src/brilliant/parser.rb
+.yardoc
+_yardoc
+coverage
+tmp
