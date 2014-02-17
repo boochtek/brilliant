@@ -26,6 +26,11 @@ module Brilliant
       result.to_i
     end
 
+    def save_bitcode(path_or_io)
+      compile
+      main_module.write_bitcode(path_or_io)
+    end
+
     def compile
       parser = Brilliant::Parser.new(source_code)
       program_node = parser.parse!
