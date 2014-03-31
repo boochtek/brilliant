@@ -12,9 +12,11 @@ module Brilliant
     def run
       if @action == :run
         exit_code = Brilliant::Compiler.new(source_code).run
+        # NOTE: The compiled and executed code may call exit() before reaching the next line.
         exit(exit_code)
       else
         Brilliant::Compiler.new(source_code).save_bitcode("#{output_file_name}.bc")
+        # TODO: Check return codes.
         system("llc -filetype=obj #{output_file_name}.bc -o #{output_file_name}.o")
         system("clang #{output_file_name}.o -o #{output_file_name}")
         system("rm #{output_file_name}.bc #{output_file_name}.o")

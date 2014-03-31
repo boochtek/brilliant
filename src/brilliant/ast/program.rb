@@ -18,6 +18,9 @@ class Brilliant::AST::Program < Brilliant::AST::Node
     main_module.functions.add('exit', [LLVM::Int32], LLVM.Void) do |function, string|
       function.linkage = :external
     end
+    main_module.functions.add('puts', [LLVM.Pointer(LLVM::Int8)], LLVM::Int32) do |function, string|
+      function.linkage = :external
+    end
   end
 
   def define_main(main_module)

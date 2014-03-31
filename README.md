@@ -31,7 +31,7 @@ rake
 And you can compile and run programs:
 
 ~~~ bash
-bin/brilliant example.bril ; echo $?
+bin/brilliant example.bril
 ~~~
 
 

@@ -11,5 +11,7 @@ expression          <- literal / function_call
 function_call       <- identifier ~'(' arg_list ~')'                            <AST::FunctionCall.new>
 identifier          <- @( ( ALPHA / '_' ) ( WORD / '!' / '?' )* )
 arg_list            <- ( expression? / expression ',' arg_list )
-literal             <- literal_integer
+literal             <- literal_text / literal_integer
+literal_text        <- @( quoted_text )                                         <AST::LiteralText.new>
 literal_integer     <- @DIGIT+                                                  <AST::LiteralInteger.new>
+quoted_text         <- ~'"' ( !'"' . )* ~'"'
