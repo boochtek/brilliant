@@ -6,6 +6,10 @@ parser Brilliant::Parser < Rattler::Runtime::ExtendedPackratParser
 
 %whitespace SPACE*
 
-program         <- literal_integer  <AST::Program.new>
-literal_integer <- @DIGIT+          <AST::LiteralInteger.new>
-
+program             <- expression+ EOF                                          <AST::Program.new>
+expression          <- literal / function_call
+function_call       <- identifier ~'(' arg_list ~')'                            <AST::FunctionCall.new>
+identifier          <- @( ( ALPHA / '_' ) ( WORD / '!' / '?' )* )
+arg_list            <- ( expression? / expression ',' arg_list )
+literal             <- literal_integer
+literal_integer     <- @DIGIT+                                                  <AST::LiteralInteger.new>

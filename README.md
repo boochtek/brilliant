@@ -4,10 +4,6 @@ Brilliant Programming Language
 This is an example of how to write an LLVM compiler in Ruby.
 We're using Rattler as a parser.
 
-It's currently the simplest compiler possible - it only allows
-an integer as the program text, and returns that integer as the
-exit code.
-
 
 Getting Started
 ---------------

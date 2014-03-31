@@ -4,7 +4,7 @@ class Brilliant::AST::Node
     raise NotImplementedError
   end
 
-  def generate_code(mod)
+  def generate_code(mod, builder)
     raise NotImplementedError
   end
 end

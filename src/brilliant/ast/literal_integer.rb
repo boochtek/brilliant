@@ -7,7 +7,7 @@ class Brilliant::AST::LiteralInteger < Brilliant::AST::Node
     @value = child_nodes.first.to_i
   end
 
-  def generate_code(mod)
+  def generate_code(mod, builder)
     LLVM.Int(@value)
   end
 end
