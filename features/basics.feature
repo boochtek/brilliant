@@ -16,11 +16,11 @@ Scenario: Exit code
 Scenario: String literals
   Given the program:
     """
-    puts("abc")
+    puts("Hello, World!")
     """
   When the program is executed
   Then the exit code should be 0
   And the output should be:
     """
-    abc
+    Hello, World!
     """
