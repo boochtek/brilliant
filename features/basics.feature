@@ -24,3 +24,18 @@ Scenario: String literals
     """
     Hello, World!
     """
+
+
+Scenario: Comments
+  Given the program:
+    """
+    # This is a comment.
+    puts("Hello, World!") # This is a comment.
+    # This is a comment.
+    """
+  When the program is executed
+  Then the exit code should be 0
+  And the output should be:
+    """
+    Hello, World!
+    """
