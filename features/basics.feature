@@ -39,3 +39,17 @@ Scenario: Comments
     """
     Hello, World!
     """
+
+
+Scenario: Function definition
+  Given the program:
+    """
+    hello = function() { puts("Hello, World!") }
+    hello()
+    """
+  When the program is executed
+  Then the exit code should be 0
+  And the output should be:
+    """
+    Hello, World!
+    """
