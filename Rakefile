@@ -6,7 +6,7 @@ require "cucumber/rake/task"
 task :default => :test
 
 desc "Run all tests"
-task :test => [:cucumber]
+task :test => [:compiler, :cucumber]
 
 Cucumber::Rake::Task.new(:cucumber => :compiler)
 
