@@ -15,6 +15,6 @@ parser Brilliant::Parser < Rattler::Runtime::ExtendedPackratParser
     literal_integer     <- @DIGIT+                                                  <AST::LiteralInteger.new>
     quoted_text         <- ~'"' ( !'"' . )* ~'"'
     function_definition <- identifier ~'=' ~'function' ~'(' ~')' code_block         <AST::FunctionDefinition.new>
-    code_block          <- ~'{' expression ~'}'                                     <AST::CodeBlock.new>
+    code_block          <- ~'{' expression+ ~'}'                                    <AST::CodeBlock.new>
 }
 comment                 <- ~([#] [^\n]*)

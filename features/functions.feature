@@ -15,3 +15,21 @@ Scenario: Function definition (single expression)
     Hello, World!
     """
   And the exit code should be 0
+
+
+Scenario: Function definition (multiple expressions)
+  Given the program:
+    """
+    hello = function() {
+      puts("Hello,")
+      puts("World!")
+    }
+    hello()
+    """
+  When the program is executed
+  Then the output should be:
+    """
+    Hello,
+    World!
+    """
+  And the exit code should be 0
