@@ -3,7 +3,7 @@ Feature: Functions
 We should be able to define and call our own functions.
 
 
-Scenario: Function definition (single expression)
+Scenario: Function definition (implicit Void, single expression)
   Given the program:
     """
     hello = function() { puts("Hello, World!") }
@@ -17,7 +17,7 @@ Scenario: Function definition (single expression)
   And the exit code should be 0
 
 
-Scenario: Function definition (multiple expressions)
+Scenario: Function definition (implicit Void, multiple expressions)
   Given the program:
     """
     hello = function() {
@@ -35,7 +35,7 @@ Scenario: Function definition (multiple expressions)
   And the exit code should be 0
 
 
-Scenario: Function return (explicit)
+Scenario: Function return (explicit Integer)
   Given the program:
     """
     two = function() : Integer {
@@ -48,3 +48,19 @@ Scenario: Function return (explicit)
     """
     """
   And the exit code should be 2
+
+
+Scenario: Function return (explicit Text)
+  Given the program:
+    """
+    hello = function() : Text {
+      return "Hello, World!"
+    }
+    puts(hello())
+    """
+  When the program is executed
+  Then the output should be:
+    """
+    Hello, World!
+    """
+  And the exit code should be 0
