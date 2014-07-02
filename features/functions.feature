@@ -6,7 +6,7 @@ We should be able to define and call our own functions.
 Scenario: Function definition (single expression)
   Given the program:
     """
-    hello = function() : Void { puts("Hello, World!") }
+    hello = function() { puts("Hello, World!") }
     hello()
     """
   When the program is executed
@@ -20,7 +20,7 @@ Scenario: Function definition (single expression)
 Scenario: Function definition (multiple expressions)
   Given the program:
     """
-    hello = function() : Void {
+    hello = function() {
       puts("Hello,")
       puts("World!")
     }

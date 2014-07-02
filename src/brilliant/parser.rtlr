@@ -19,7 +19,9 @@ parser Brilliant::Parser < Rattler::Runtime::ExtendedPackratParser
     quoted_text         <- ~'"' ( !'"' . )* ~'"'
 
     function_definition <- identifier ~'=' ~'function' function_signature code_block        <AST::FunctionDefinition.new>
-    function_signature  <- ~'(' ~')' ~':' identifier                                        <AST::FunctionSignature.new>
+    function_signature       <- typed_function_signature / void_function_signature
+    typed_function_signature <- ~'(' ~')' ~':' identifier                                   <AST::FunctionSignature.new>
+    void_function_signature  <- ~'(' ~')'                                                   <AST::VoidFunctionSignature.new>
     code_block          <- ~'{' expression+ ~'}'                                            <AST::CodeBlock.new>
     return              <- ~'return' expression                                             <AST::Return.new>
 }
