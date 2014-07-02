@@ -2,10 +2,10 @@ require "brilliant/ast/node"
 
 
 class Brilliant::AST::CodeBlock < Brilliant::AST::Node
-  attr_reader :child_nodes
+  attr_accessor :child_nodes
 
   def initialize(child_nodes)
-    @child_nodes = child_nodes.first
+    self.child_nodes = child_nodes.first
   end
 
   def generate_code(mod, builder)

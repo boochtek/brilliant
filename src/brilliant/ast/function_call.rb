@@ -3,13 +3,16 @@ require "llvm/core"
 
 
 class Brilliant::AST::FunctionCall < Brilliant::AST::Node
+  attr_accessor :function_name
+  attr_accessor :argument_list
+
   def initialize(child_nodes)
-    @function_name = child_nodes.first
-    @arg_list = child_nodes.last
+    self.function_name = child_nodes.first
+    self.argument_list = child_nodes.last
   end
 
   def generate_code(mod, builder)
-    args = @arg_list.map{|arg| arg.generate_code(mod, builder)}
-    builder.call(mod.functions[@function_name], *args)
+    args = argument_list.map{|arg| arg.generate_code(mod, builder)}
+    builder.call(mod.functions[function_name], *args)
   end
 end
