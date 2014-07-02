@@ -1,19 +1,25 @@
 require "brilliant/ast/node"
+require "brilliant/type"
 require "llvm/core"
 
 
 class Brilliant::AST::FunctionDefinition < Brilliant::AST::Node
   def initialize(child_nodes)
-    @function_name = child_nodes.first
-    @code_block = child_nodes.last
+    @function_name = child_nodes[0]
+    @function_signature = child_nodes[1]
+    @code_block = child_nodes[-1]
   end
 
   def generate_code(mod, builder)
-    return_type = LLVM.Void  # TODO: Need to determine the return type of the function.
-    mod.functions.add(@function_name, [], LLVM.Void) do |function|
+    return_type = Type.of(@function_signature.return_type)
+    mod.functions.add(@function_name, [], return_type) do |function|
       function.basic_blocks.append("entry").build do |builder|
         @code_block.generate_code(mod, builder)
-        builder.ret_void  # TODO: If the function does not return void, then use builder.ret() instead.
+        if return_type == Type::Void
+          builder.ret_void
+        else
+          # No implicit return yet. Function must end with an explicit `return`.
+        end
       end
     end
   end
