@@ -13,19 +13,6 @@ Scenario: Exit code
   Then the exit code should be 123
 
 
-Scenario: String literals
-  Given the program:
-    """
-    puts("Hello, World!")
-    """
-  When the program is executed
-  Then the exit code should be 0
-  And the output should be:
-    """
-    Hello, World!
-    """
-
-
 Scenario: Comments
   Given the program:
     """
