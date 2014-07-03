@@ -11,11 +11,18 @@ parser Brilliant::Parser < Rattler::Runtime::ExtendedPackratParser
 
     expression                  <- literal / function_call / function_definition / return
     function_call               <- identifier ~'(' arg_list ~')'                                    <AST::FunctionCall.new>
-    arg_list                    <- ( expression? / expression ',' arg_list )
+    arg_list                    <- expression? / expression ',' arg_list
 
     literal                     <- literal_text / literal_integer
     literal_text                <- @( quoted_text )                                                 <AST::LiteralText.new>
-    literal_integer             <- @DIGIT+                                                          <AST::LiteralInteger.new>
+    literal_integer             <- hexadecimal_integer / octal_integer / binary_integer / decimal_integer
+    decimal_integer             <- @( '-'? DIGIT+ )                                                 <AST::LiteralInteger.new>
+    hexadecimal_integer         <- @( ~'0x' XDIGIT+ )                                               <AST::LiteralIntegerHex.new>
+    octal_integer               <- @( ~'0o' ODIGIT+ )                                               <AST::LiteralIntegerOctal.new>
+    binary_integer              <- @( ~'0b' BDIGIT+ )                                               <AST::LiteralIntegerBinary.new>
+    ODIGIT                      <- [0-7]
+    BDIGIT                      <- [0-1]
+
     quoted_text                 <- ~'"' ( !'"' . )* ~'"'
 
     function_definition         <- identifier ~'=' ~'function' function_signature code_block        <AST::FunctionDefinition.new>
