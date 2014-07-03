@@ -14,7 +14,7 @@ parser Brilliant::Parser < Rattler::Runtime::ExtendedPackratParser
     arg_list                    <- expression? / expression ',' arg_list
 
     literal                     <- literal_text / literal_integer
-    literal_text                <- @( quoted_text )                                                 <AST::LiteralText.new>
+    literal_text                <- quoted_text                                                      <AST::LiteralText.new>
     literal_integer             <- hexadecimal_integer / octal_integer / binary_integer / decimal_integer
     decimal_integer             <- @( '-'? DIGIT+ )                                                 <AST::LiteralInteger.new>
     hexadecimal_integer         <- @( ~'0x' XDIGIT+ )                                               <AST::LiteralIntegerHex.new>
@@ -23,7 +23,7 @@ parser Brilliant::Parser < Rattler::Runtime::ExtendedPackratParser
     ODIGIT                      <- [0-7]
     BDIGIT                      <- [0-1]
 
-    quoted_text                 <- ~'"' ( !'"' . )* ~'"'
+    quoted_text                 <- ~'"' @( !'"' . )* ~'"'
 
     function_definition         <- identifier ~'=' ~'function' function_signature code_block        <AST::FunctionDefinition.new>
     function_signature          <- typed_function_signature / void_function_signature
